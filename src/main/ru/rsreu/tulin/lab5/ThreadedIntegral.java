@@ -3,9 +3,7 @@ package ru.rsreu.tulin.lab5;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Alex on 26.05.2017.
- */
+/** Created by Alex on 26.05.2017. */
 public class ThreadedIntegral {
 
   private final int threadCount;
@@ -41,5 +39,4 @@ public class ThreadedIntegral {
     }
     return result;
   }
-
 }

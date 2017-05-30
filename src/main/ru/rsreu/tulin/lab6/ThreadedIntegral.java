@@ -42,5 +42,4 @@ public class ThreadedIntegral {
     }
     return result;
   }
-
 }

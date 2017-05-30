@@ -1,17 +1,14 @@
 package ru.rsreu.tulin.lab4;
 
-
 public class Integral implements Runnable {
 
-  private final int n;
+  private final int iterationCount;
 
-  public Integral(int n) {
-    this.n = n;
-
+  public Integral(int iterationCount) {
+    this.iterationCount = iterationCount;
   }
 
-  static double InFunction(double x)
-  {
+  static double inFunction(double x) {
     return Math.sin(x) * x;
   }
 
@@ -19,7 +16,8 @@ public class Integral implements Runnable {
     byte a = 0;
     byte b = 1;
     int i;
-    double result, h;
+    double result;
+    double h;
 
     int commonIterationInfo = n / 100;
     byte currentIterationInfo = 1;
@@ -36,7 +34,7 @@ public class Integral implements Runnable {
             Thread.currentThread().getName() + " Загрузка : " + currentIterationInfo + " %");
         currentIterationInfo++;
       }
-      result += InFunction(a + h * (i + 0.5));
+      result += inFunction(a + h * (i + 0.5));
     }
     System.out.print(result);
     result *= h;
@@ -47,15 +45,11 @@ public class Integral implements Runnable {
   public void run() {
 
     try {
-      getIntegral(n);
+      getIntegral(iterationCount);
     } catch (InterruptedException e) {
       System.err.println(Thread.currentThread() + " was interrupted.");
     } catch (ArithmeticException e) {
-      System.err.println("Seems that you entered invalid <n>");
+      System.err.println("Seems that you entered invalid <iterationCount>");
     }
   }
-
-
 }
-
-

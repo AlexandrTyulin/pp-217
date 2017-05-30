@@ -3,9 +3,8 @@ package ru.rsreu.tulin.lab4;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 import java.util.Map;
-
+import java.util.Scanner;
 
 public class Menu {
 
@@ -65,7 +64,6 @@ public class Menu {
         join(argument);
         break;
       case STOP:
-
         if (stop(argument)) {
           printStream.println("Task number " + argument + " stoped");
         }
@@ -73,8 +71,11 @@ public class Menu {
 
       case EXITS:
         printStream.println("Happy End");
-        System.exit(2);
+        System.exit(0);
         break;
+      default:
+        printStream.println("Something went wrong with parsing command");
+        System.exit(-1);
     }
   }
 
@@ -115,7 +116,6 @@ public class Menu {
       task = tasks.get(indexAsString);
       if (task != null) {
         task.join();
-
       }
     } catch (InterruptedException e) {
       System.err.println(indexAsString + " was interrupted");
@@ -123,13 +123,4 @@ public class Menu {
       tasks.remove(indexAsString);
     }
   }
-
 }
-
-
-
-
-
-
-
-

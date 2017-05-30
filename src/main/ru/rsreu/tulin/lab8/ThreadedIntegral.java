@@ -2,13 +2,10 @@ package ru.rsreu.tulin.lab8;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.Semaphore;
-
 
 public class ThreadedIntegral {
 
@@ -56,11 +53,10 @@ public class ThreadedIntegral {
       result += subResult;
 
       long duration = overallEndTime - integrals.get(index).getEndTime();
-      String message = String
-          .format("Time of execution for %d task is \t %d \tns", index, duration);
+      String message =
+          String.format("Time of execution for %d task is \t %d \tns", index, duration);
       System.out.println(message);
     }
     return result;
   }
-
 }

@@ -1,8 +1,6 @@
 package ru.rsreu.tulin.lab8;
 
-
 import java.util.concurrent.ExecutionException;
-
 
 public class LazyThreadedIntegral {
 

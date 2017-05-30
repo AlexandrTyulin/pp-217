@@ -2,29 +2,24 @@ package ru.rsreu.tulin.lab6;
 
 import java.util.concurrent.Callable;
 
-
 public class Integral implements Callable<Double> {
 
   private double from = 0;
   private double to;
-  private final int n;
+  private final int iterationCount;
   private double result = 0;
   private Boolean isResultReady = false;
 
-  public Integral(int n) {
-    this.n = n;
-    this.to = (double) n;
+  public Integral(int iterationCount) {
+    this.iterationCount = iterationCount;
+    this.to = (double) iterationCount;
   }
 
-  double InFunction(double x) //Подынтегральная функция
-  {
-    return Math.sin(x) * x; //Например, sin(x)
-  }
-
-  double getIntegral(int n) throws InterruptedException {
+  public double getIntegral(int n) throws InterruptedException {
     final double a = 0;
     final double b = 1;
-    double result, h;
+    double result;
+    double h;
 
     final double commonIterationInfo = (b - a) / 100;
     double currentIterationInfo = commonIterationInfo;
@@ -38,11 +33,10 @@ public class Integral implements Callable<Double> {
         }
 
         if (current >= currentIterationInfo) {
-          System.out.println(
-              Thread.currentThread().getName() + " Текущий результат : \t" + result);
+          System.out.println(Thread.currentThread().getName() + " Текущий результат : \t" + result);
           currentIterationInfo += commonIterationInfo;
         }
-        result += InFunction(current); //Вычисляем в средней точке и добавляем в сумму
+        result += inFunction(current); //Вычисляем в средней точке и добавляем в сумму
       }
     }
     result *= h;
@@ -75,8 +69,10 @@ public class Integral implements Callable<Double> {
   }
 
   public Double call() throws Exception {
-    return getIntegral(n);
+    return getIntegral(iterationCount);
+  }
+
+  private double inFunction(double x) {
+    return Math.sin(x) * x; //Например, sin(x)
   }
 }
-
-

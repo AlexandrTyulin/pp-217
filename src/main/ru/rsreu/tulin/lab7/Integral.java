@@ -4,20 +4,19 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Semaphore;
 
-
 public class Integral implements Callable<Double> {
 
   private double from = 0;
   private double to = 1;
-  private final int n;
+  private final int iterationCount;
   private Logger logger;
   private Semaphore semaphore = new Semaphore(1);
   private CountDownLatch latch = new CountDownLatch(1);
   private long endTime = 0;
 
-  public Integral(int n) {
-    this.n = n;
-    logger = new Logger(n);
+  public Integral(int iterationCount) {
+    this.iterationCount = iterationCount;
+    logger = new Logger(iterationCount);
   }
 
   public long getEndTime() {
@@ -48,13 +47,13 @@ public class Integral implements Callable<Double> {
     this.semaphore = semaphore;
   }
 
-  double InFunction(double x) //Подынтегральная функция
-  {
-    return Math.sin(x) * x; //Например, sin(x)
+  double inFunction(double x) {
+    return Math.sin(x) * x;
   }
 
   double getIntegral(int n) throws InterruptedException {
-    double result, h;
+    double result;
+    double h;
 
     result = 0;
     h = (to - from) / n; //Шаг сетки
@@ -65,7 +64,7 @@ public class Integral implements Callable<Double> {
         if (Thread.currentThread().isInterrupted()) {
           throw new InterruptedException();
         }
-        result += InFunction(current); //Вычисляем в средней точке и добавляем в сумму
+        result += inFunction(current); //Вычисляем в средней точке и добавляем в сумму
 
         int increaseInterval = n / 10;
         if (iterationNumber % increaseInterval == 0) {
@@ -102,7 +101,7 @@ public class Integral implements Callable<Double> {
     semaphore.acquire();
     double result;
     try {
-      result = getIntegral(n);
+      result = getIntegral(iterationCount);
       endTime = System.nanoTime();
     } finally {
       semaphore.release();
@@ -111,5 +110,3 @@ public class Integral implements Callable<Double> {
     return result;
   }
 }
-
-

@@ -9,7 +9,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.Semaphore;
 
-
 public class ThreadedIntegral {
 
   private final int threadCount;
@@ -56,11 +55,10 @@ public class ThreadedIntegral {
       result += subResult;
 
       long duration = overallEndTime - integrals.get(index).getEndTime();
-      String message = String
-          .format("Time of execution for %d task is \t %d \tns", index, duration);
+      String message =
+          String.format("Time of execution for %d task is \t %d \tns", index, duration);
       System.out.println(message);
     }
     return result;
   }
-
 }

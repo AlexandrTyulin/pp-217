@@ -1,8 +1,5 @@
 package ru.rsreu.tulin.lab8;
 
-
-import java.util.concurrent.locks.ReentrantLock;
-
 public class CustomLock {
 
   CustomLock() {
@@ -17,11 +14,11 @@ public class CustomLock {
       } else if (lockHoldCount > 0 && lockedBy.equals(Thread.currentThread())) {
         lockHoldCount++;
       } else {
-          while (lockHoldCount != 0) {
-            monitor.wait();
-          }
-          lockHoldCount++;
-          lockedBy = Thread.currentThread();
+        while (lockHoldCount != 0) {
+          monitor.wait();
+        }
+        lockHoldCount++;
+        lockedBy = Thread.currentThread();
       }
     }
   }
@@ -30,7 +27,7 @@ public class CustomLock {
     synchronized (monitor) {
       if (lockHoldCount == 0) {
         throw new IllegalMonitorStateException();
-      }else if(!Thread.currentThread().equals(lockedBy)) {
+      } else if (!Thread.currentThread().equals(lockedBy)) {
         throw new IllegalMonitorStateException();
       }
 

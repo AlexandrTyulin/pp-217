@@ -1,6 +1,5 @@
 package ru.rsreu.tulin.lab8;
 
-
 public class CustomSemaphore {
 
   public CustomSemaphore(int permits) {
@@ -48,4 +47,3 @@ public class CustomSemaphore {
   private final int permits;
   private volatile int acquiredCount;
 }
-

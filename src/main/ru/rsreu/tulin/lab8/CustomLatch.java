@@ -1,6 +1,5 @@
 package ru.rsreu.tulin.lab8;
 
-
 public class CustomLatch {
 
   public CustomLatch(int count) {
@@ -27,6 +26,4 @@ public class CustomLatch {
 
   private volatile int count;
   private Object monitor = new Object();
-
 }
-

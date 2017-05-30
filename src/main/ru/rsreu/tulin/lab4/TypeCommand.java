@@ -1,8 +1,10 @@
 package ru.rsreu.tulin.lab4;
 
-
 public enum TypeCommand {
-  START, STOP, AWAIT, EXITS;
+  START,
+  STOP,
+  AWAIT,
+  EXITS;
 
   public static TypeCommand fromString(String inString) {
     if (inString.contains("start")) {
@@ -23,5 +25,4 @@ public enum TypeCommand {
   public boolean needsIntArgument() {
     return (this == STOP) || (this == AWAIT) || (this == START);
   }
-
 }

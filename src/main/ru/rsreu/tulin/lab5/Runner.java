@@ -11,6 +11,5 @@ public class Runner {
     } catch (InterruptedException e) {
       System.err.println("Interrupted.");
     }
-
   }
 }

@@ -1,6 +1,5 @@
 package ru.rsreu.tulin.lab5;
 
-
 public class LazyThreadedIntegral {
 
   private ThreadedIntegral instance = null;

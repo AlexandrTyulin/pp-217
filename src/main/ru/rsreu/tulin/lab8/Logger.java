@@ -1,6 +1,5 @@
 package ru.rsreu.tulin.lab8;
 
-
 public class Logger {
 
   private static final double PERCENT_DELTA = 0.1;
@@ -13,7 +12,7 @@ public class Logger {
     this.maxIterationCount = maxIterationCount;
   }
 
-  public int getIterationNumber() throws InterruptedException{
+  public int getIterationNumber() throws InterruptedException {
     lock.lock();
     int result = iterationNumber;
     lock.unlock();
@@ -45,13 +44,13 @@ public class Logger {
     increaseIterationNumber(1);
   }
 
-  public void increasePercent() throws InterruptedException{
+  public void increasePercent() throws InterruptedException {
     lock.lock();
     currentPercent += PERCENT_DELTA;
     lock.unlock();
   }
 
-  public void printStatus() throws InterruptedException{
+  public void printStatus() throws InterruptedException {
     lock.lock();
     try {
       int percents = (int) (getCurrentPercents() * 100);
@@ -60,6 +59,4 @@ public class Logger {
       lock.unlock();
     }
   }
-
-
 }

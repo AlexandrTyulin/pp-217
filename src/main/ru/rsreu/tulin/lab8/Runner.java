@@ -15,6 +15,5 @@ public class Runner {
     } catch (ExecutionException e) {
       System.err.println("Something went wrong:" + e.getCause().getMessage());
     }
-
   }
 }

@@ -2,7 +2,6 @@ package ru.rsreu.tulin.lab7;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-
 public class Logger {
 
   private static final double PERCENT_DELTA = 0.1;
@@ -62,6 +61,4 @@ public class Logger {
       lock.unlock();
     }
   }
-
-
 }

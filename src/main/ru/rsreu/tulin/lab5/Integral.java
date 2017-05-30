@@ -1,28 +1,22 @@
 package ru.rsreu.tulin.lab5;
 
-
 public class Integral implements Runnable {
 
   private double from = 0;
-  private double to;
-  private final int n;
+  private double to = 1;
+  private final int iterationCount;
   private double result = 0;
   private Boolean isResultReady = false;
 
-  public Integral(int n) {
-    this.n = n;
-    this.to = (double) n;
+  public Integral(int iterationCount) {
+    this.iterationCount = iterationCount;
   }
 
-  double InFunction(double x) //Подынтегральная функция
-  {
-    return Math.sin(x) * x; //Например, sin(x)
-  }
-
-  double getIntegral(int n) throws InterruptedException {
+  public double getIntegral(int n) throws InterruptedException {
     final double a = 0;
     final double b = 1;
-    double result, h;
+    double result;
+    double h;
 
     final double commonIterationInfo = (b - a) / 100;
     double currentIterationInfo = commonIterationInfo;
@@ -35,12 +29,11 @@ public class Integral implements Runnable {
           throw new InterruptedException();
         }
 
-        if (current >= commonIterationInfo) {
-          System.out.println(
-              Thread.currentThread().getName() + " Текущий результат : \t" + result);
+        if (current >= currentIterationInfo) {
+          System.out.println(Thread.currentThread().getName() + " Текущий результат : \t" + result);
           currentIterationInfo += commonIterationInfo;
         }
-        result += InFunction(current);
+        result += inFunction(current);
       }
     }
     result *= h;
@@ -52,7 +45,7 @@ public class Integral implements Runnable {
     try {
       synchronized (this) {
         isResultReady = false;
-        result = getIntegral(n);
+        result = getIntegral(iterationCount);
         isResultReady = true;
         this.notify();
       }
@@ -87,6 +80,7 @@ public class Integral implements Runnable {
     this.to = to;
   }
 
+  private double inFunction(double x) {
+    return Math.sin(x) * x; //Например, sin(x)
+  }
 }
-
-
