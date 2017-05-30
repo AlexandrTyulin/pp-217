@@ -10,9 +10,9 @@ public class Integral implements Runnable {
 
   }
 
-  static double InFunction(double x) //Подынтегральная функция
+  static double InFunction(double x)
   {
-    return Math.sin(x) * x; //Например, sin(x)
+    return Math.sin(x) * x;
   }
 
   static double getIntegral(int n) throws InterruptedException {
@@ -24,7 +24,7 @@ public class Integral implements Runnable {
     int commonIterationInfo = n / 100;
     byte currentIterationInfo = 1;
     result = 0;
-    h = (b - a) / n; //Шаг сетки
+    h = (b - a) / n;
 
     for (i = 0; i < n; i++) {
       if (Thread.currentThread().isInterrupted()) {
@@ -36,7 +36,7 @@ public class Integral implements Runnable {
             Thread.currentThread().getName() + " Загрузка : " + currentIterationInfo + " %");
         currentIterationInfo++;
       }
-      result += InFunction(a + h * (i + 0.5)); //Вычисляем в средней точке и добавляем в сумму
+      result += InFunction(a + h * (i + 0.5));
     }
     System.out.print(result);
     result *= h;

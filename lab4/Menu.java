@@ -31,7 +31,7 @@ public class Menu {
           continue;
         }
 
-        Object argument = readArgumentIfNeeded(commandType);
+        Integer argument = readArgumentIfNeeded(commandType);
         execute(commandType, argument);
       } catch (InputMismatchException e) {
         printStream.println("Incorrect command");
@@ -39,7 +39,7 @@ public class Menu {
     }
   }
 
-  private Object readArgumentIfNeeded(TypeCommand commandType) throws InputMismatchException {
+  private Integer readArgumentIfNeeded(TypeCommand commandType) throws InputMismatchException {
     if (commandType.needsIntArgument()) {
       Integer index = scanner.nextInt();
       return index;
@@ -48,27 +48,26 @@ public class Menu {
     }
   }
 
-  private void execute(TypeCommand commandType, Object argument) throws IllegalArgumentException {
-    if (commandType.needsIntArgument() && argument.getClass() != Integer.class) {
+  private void execute(TypeCommand commandType, Integer argument) throws IllegalArgumentException {
+    if (commandType.needsIntArgument() && (argument == null)) {
       throw new IllegalArgumentException("Specified command needs integer as argument");
     }
 
-    Object index = (argument != null) ? (Integer) argument : 0;
     String message;
     switch (commandType) {
       case START:
-        index = startTask((Integer) index);
+        int index = startTask(argument);
         message = String.format("Task number %d started", index);
         printStream.println(message);
         break;
       case AWAIT:
-        printStream.println(index + " process awaiting!");
-        join((Integer) index);
+        printStream.println(argument + " process awaiting!");
+        join(argument);
         break;
       case STOP:
 
-        if (stop((Integer) index)) {
-          printStream.println("Task number " + index + " stoped");
+        if (stop(argument)) {
+          printStream.println("Task number " + argument + " stoped");
         }
         break;
 

@@ -13,14 +13,14 @@ public class Logger {
     this.maxIterationCount = maxIterationCount;
   }
 
-  public int getIterationNumber() {
+  public int getIterationNumber() throws InterruptedException{
     lock.lock();
     int result = iterationNumber;
     lock.unlock();
     return result;
   }
 
-  public boolean isTimeToPrint() {
+  public boolean isTimeToPrint() throws InterruptedException {
     lock.lock();
     boolean result = false;
     try {
@@ -35,23 +35,23 @@ public class Logger {
     return (float) iterationNumber / (float) maxIterationCount;
   }
 
-  public void increaseIterationNumber(int delta) {
+  public void increaseIterationNumber(int delta) throws InterruptedException {
     lock.lock();
     iterationNumber += delta;
     lock.unlock();
   }
 
-  public void increaseIterationNumber() {
+  public void increaseIterationNumber() throws InterruptedException {
     increaseIterationNumber(1);
   }
 
-  public void increasePercent() {
+  public void increasePercent() throws InterruptedException{
     lock.lock();
     currentPercent += PERCENT_DELTA;
     lock.unlock();
   }
 
-  public void printStatus() {
+  public void printStatus() throws InterruptedException{
     lock.lock();
     try {
       int percents = (int) (getCurrentPercents() * 100);

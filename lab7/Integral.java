@@ -10,8 +10,6 @@ public class Integral implements Callable<Double> {
   private double from = 0;
   private double to = 1;
   private final int n;
-  private double result = 0;
-  private Boolean isResultReady = false;
   private Logger logger;
   private Semaphore semaphore = new Semaphore(1);
   private CountDownLatch latch = new CountDownLatch(1);
@@ -80,14 +78,6 @@ public class Integral implements Callable<Double> {
       }
     }
     result *= h;
-
-    return result;
-  }
-
-  public synchronized double getResult() throws InterruptedException {
-    while (!isResultReady) {
-      this.wait();
-    }
 
     return result;
   }

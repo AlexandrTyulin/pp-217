@@ -1,13 +1,15 @@
 package ru.rsreu.tulin.lab8;
 
 
+import java.util.concurrent.locks.ReentrantLock;
+
 public class CustomLock {
 
   CustomLock() {
     lockHoldCount = 0;
   }
 
-  public void lock() {
+  public void lock() throws InterruptedException {
     synchronized (monitor) {
       if (lockHoldCount == 0) {
         lockHoldCount++;
@@ -15,15 +17,11 @@ public class CustomLock {
       } else if (lockHoldCount > 0 && lockedBy.equals(Thread.currentThread())) {
         lockHoldCount++;
       } else {
-        try {
           while (lockHoldCount != 0) {
             monitor.wait();
           }
           lockHoldCount++;
           lockedBy = Thread.currentThread();
-        } catch (InterruptedException e) {
-          System.out.println("Lock was interrupted in thread " + Thread.currentThread().getName());
-        }
       }
     }
   }
@@ -31,6 +29,8 @@ public class CustomLock {
   public void unlock() {
     synchronized (monitor) {
       if (lockHoldCount == 0) {
+        throw new IllegalMonitorStateException();
+      }else if(!Thread.currentThread().equals(lockedBy)) {
         throw new IllegalMonitorStateException();
       }
 
@@ -42,6 +42,6 @@ public class CustomLock {
   }
 
   private volatile int lockHoldCount;
-  private volatile Thread lockedBy;
+  private Thread lockedBy;
   private Object monitor = new Object();
 }
